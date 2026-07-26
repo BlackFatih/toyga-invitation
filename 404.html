@@ -233,6 +233,63 @@
   .btn:active{transform:scale(.96)}
   .btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6}
 
+  /* --- TO'YONA KARTA --- */
+  #gift{background:var(--bg2)}
+  .bankcard{
+    position:relative;
+    max-width:340px;margin:26px auto 0;
+    aspect-ratio:1.586;
+    border-radius:18px;
+    padding:22px 22px 18px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    text-align:left;
+    background:
+      radial-gradient(circle at 82% 12%, rgba(232,207,156,.28), transparent 45%),
+      radial-gradient(circle at 12% 95%, rgba(212,175,106,.18), transparent 50%),
+      linear-gradient(135deg,#2b2117 0%,#1c1510 55%,#241a12 100%);
+    border:1px solid rgba(212,175,106,.45);
+    box-shadow:0 18px 44px rgba(0,0,0,.55), inset 0 1px 0 rgba(232,207,156,.25);
+    overflow:hidden;
+  }
+  .bankcard::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(115deg,transparent 30%,rgba(232,207,156,.07) 45%,transparent 60%);
+    animation:shine 4.5s ease-in-out infinite;
+  }
+  @keyframes shine{
+    0%,60%{transform:translateX(-120%)}
+    100%{transform:translateX(120%)}
+  }
+  .bc-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .bc-chip{
+    width:38px;height:28px;border-radius:6px;
+    background:linear-gradient(135deg,#e8cf9c,#b08d4f);
+    position:relative;
+  }
+  .bc-chip::after{
+    content:'';position:absolute;inset:5px 4px;
+    border:1px solid rgba(60,45,20,.5);border-radius:3px;
+  }
+  .bc-brand{
+    font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold-soft);padding-top:6px;
+  }
+  .bc-num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(19px,5.8vw,23px);
+    letter-spacing:.09em;
+    color:var(--cream);
+    font-variant-numeric:tabular-nums;
+    text-shadow:0 1px 2px rgba(0,0,0,.6);
+  }
+  .bc-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+  .bc-name{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);
+  }
+  .bc-heart{font-size:15px;color:var(--gold)}
+  #copyBtn{margin-top:20px}
+  #copyBtn.ok{border-color:var(--gold);color:var(--gold)}
+
   /* --- YAKUN --- */
   #finale{
     background:radial-gradient(ellipse at 50% 100%, rgba(212,175,106,.13), transparent 62%), #120e0c;
@@ -358,6 +415,35 @@
       <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
       Xaritada ko'rish
     </a>
+  </div>
+</section>
+
+<!-- ============ TO'YONA ============ -->
+<section id="gift">
+  <div class="reveal">
+    <h2 class="title">To'yona uchun</h2>
+    <div class="divider"><span></span><b>✦</b><span></span></div>
+    <p class="small">
+      Bizni tabriklamoqchi bo'lsangiz — eng qimmatli sovg'a duolaringiz.
+      Xohlovchilar uchun karta raqamimiz:
+    </p>
+
+    <div class="bankcard">
+      <div class="bc-top">
+        <div class="bc-chip"></div>
+        <div class="bc-brand">Humo</div>
+      </div>
+      <div class="bc-num" id="cardNum">9860 1601 4324 4640</div>
+      <div class="bc-bottom">
+        <div class="bc-name">Turg'unov Xidirali</div>
+        <div class="bc-heart">✦</div>
+      </div>
+    </div>
+
+    <button class="btn" id="copyBtn" type="button">
+      <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
+      <span id="copyLabel">Raqamni nusxalash</span>
+    </button>
   </div>
 </section>
 
@@ -543,6 +629,27 @@ $('#openBtn').addEventListener('click', () => {
 musicBtn.addEventListener('click', () => {
   const on = Music.toggle();
   musicBtn.classList.toggle('paused', !on);
+});
+
+/* ---- To'yona: karta raqamini nusxalash ---- */
+$('#copyBtn').addEventListener('click', async () => {
+  const num = $('#cardNum').textContent.replace(/\s/g, '');
+  try {
+    await navigator.clipboard.writeText(num);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = num;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+  $('#copyBtn').classList.add('ok');
+  $('#copyLabel').textContent = 'Nusxalandi ✓';
+  setTimeout(() => {
+    $('#copyBtn').classList.remove('ok');
+    $('#copyLabel').textContent = 'Raqamni nusxalash';
+  }, 2200);
 });
 
 /* ---- Sanoq ---- */
