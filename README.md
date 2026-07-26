@@ -15,7 +15,7 @@ O'ng yuqoridagi tugma orqali o'chirib-yoqish mumkin.
 
 **`<script>` ichidagi CONFIG (fayl oxirida):**
 ```js
-toy: new Date(2026, 8, 12, 17, 0),  // yil, oy(0=yanvar!), kun, soat, daqiqa
+toy: new Date(2026, 7, 22, 6, 0),  // yil, oy(0=yanvar!), kun, soat, daqiqa
 xarita: "https://yandex.uz/maps/..." // to'yxona joylashuvi havolasi
 ```
 ⚠️ Oy **0 dan** boshlanadi: 0=yanvar, 8=sentabr, 11=dekabr.
